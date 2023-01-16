@@ -14,6 +14,7 @@ class page
 public:
     page(std::vector<std::string> _text);
 
-    std::vector<letter*> vLetter;
+    std::vector<string> drop();
     std::vector<std::string> text;
+    std::vector<std::vector<letter*>> vvLetter;
 };

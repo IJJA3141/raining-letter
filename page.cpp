@@ -27,3 +27,12 @@ page::page(std::vector<std::string> _text)
 
     return;
 }
+
+page::drop()
+{
+    for(size_t i = 0; i < vLetter.size(); i++)
+    {
+        this->vLetter[i];
+        
+    }
+}
