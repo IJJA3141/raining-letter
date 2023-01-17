@@ -89,39 +89,58 @@ void printVector(std::vector<std::vector<char>> _vector)
 
 std::vector<std::vector<char>> drop(std::vector<std::vector<char>> _vector)
 {
-    for (size_t i = _vector.size() - 2; i <= 0; i--)
+    std::cout << "\n\n";
+    printVector(_vector);
+    std::cout << "\n\n";
+    std::cout << "-1 :";
+    for (int i = _vector.size() - 2; i >= 0; i--)
     {
-        if(_vector[i + 1][0] == " "[0])
+        std::cout << "0 ";
+        for (size_t j = 0; j < _vector[i].size(); j++)
         {
-            _vector[i + 1][0] = _vector[i][0];
-        } else if (_vector[i + 1][1] == " "[0]){
-            _vector[i + 1][1] = _vector[i][0];
-        }
+            if(j == 0 || j == _vector[i].size() - 1)
+            {
+                std::cout << "0.5 ";
+                if(j == 0)
+                {
+                    if(_vector[i + 1][j] == " "[0])
+                    {
+                        std::cout << "1 ";
+                        _vector[i + 1][j] = _vector[i][j];
+                        _vector[i][j] = " "[0];
+                    } else if(_vector[i + 1][j + 1] == " "[0]) {
+                        std::cout << "2 ";
+                        _vector[i + 1][j + 1] = _vector[i][j];
+                        _vector[i][j] = " "[0];
+                    }
+                } else {
+                    if(_vector[i + 1][_vector[i].size() - 1] == " "[0])
+                    {
+                        std::cout << "3 ";
+                        _vector[i + 1][_vector[i].size() - 1] = _vector[i][_vector[i].size() - 1];
+                        _vector[i][_vector[i].size() - 1] = " "[0];
+                    } else if(_vector[i + 1][_vector[i].size() - 2] == " "[0]) {
+                        std::cout << "4 ";
+                        _vector[i + 1][_vector[i].size() - 2] = _vector[i][_vector[i].size() - 1];
+                        _vector[i][_vector[i].size() - 1] = " "[0];
+                    }
+                }
+            } else {
 
-        if(_vector[i + 1][_vector[i].size() - 1] == " "[0])
-        {
-            _vector[i + 1][_vector[i].size() - 1] = _vector[i][_vector[i].size() - 1];
-        } else if (_vector[i + 1][_vector[i].size() - 2] == " "[0]){
-            _vector[i + 1][_vector[i].size() - 2] = _vector[i][_vector[i].size() - 1];
+            }
         }
-
-        /*
-        for (size_t j = 1; j < _vector[i].size() - 2; j++)
-        {
-            
-        }
-        */
     }
 
+    std::cout << "\n\n";
     return _vector;
 }
 
 int main()
 {
-    const char* t_path = ".txt";
+    const char* t_path = ".js";
 
     std::vector<std::vector<char>> o = read(t_path);
-    printVector(drop(normalize(o)));
+    printVector(drop(drop(drop(drop(drop(drop(normalize(o))))))));
     
     std::cin.get();
     return 0;
