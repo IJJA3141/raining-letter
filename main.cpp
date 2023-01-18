@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 
+#include "table.h"
+
 int xMaxSize(std::vector<std::vector<char>> _vector)
 {
     int out = 0;
@@ -137,11 +139,17 @@ std::vector<std::vector<char>> drop(std::vector<std::vector<char>> _vector)
 
 int main()
 {
-    const char* t_path = ".js";
+    const char* t_path = ".txt";
 
     std::vector<std::vector<char>> o = read(t_path);
-    printVector(drop(drop(drop(drop(drop(drop(normalize(o))))))));
+    table a = table(o);
     
+    a.m_fall();
+    a.m_fall();
+    a.m_fall();
+    a.m_fall();
+    a.m_fall();
+
     std::cin.get();
     return 0;
 }
