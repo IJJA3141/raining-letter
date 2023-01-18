@@ -24,7 +24,6 @@ table::table(std::vector<std::vector<char>> _vector)
         }   
     }
 
-    m_printc();
     return;
 }   
 
@@ -50,71 +49,57 @@ int table::m_size(std::vector<std::vector<char>> _vector)
 
 int table::m_canFall(int _x, int _y)
 {
-    char dummy = m_ppChar[_y][_x];
-
-    if(dummy == "9"[0])
-    {
-        int dummy2 = 0;
-    }
-
     if(m_ppChar[_y][_x] == " "[0])
     {
-        std::cout << "0\n";
         return 0;
     }
     else if(m_ppChar[_y + 1][_x] == " "[0])
     {
-        std::cout << "2\n";
         return 2;
     }
     else if(_x - 1 >= 0)
     {
-        std::cout << "x-1 >= 0\n";
         if(m_ppChar[_y + 1][_x - 1] == " "[0])
         {
-            std::cout << "1\n";
             return 1;
         }
     }
     if(_x + 1 < m_x)
     {
-        std::cout << "x+1 < 0\n";
         if(m_ppChar[_y + 1][_x + 1] == " "[0])
         {
-            std::cout << "3\n";
             return 3;
         }
     } 
-
-    std::cout << "4\n";
     return 0;
 }
 
-void table::m_fall()
+bool table::m_fall(int _offset)
 {
+    bool changed = false;
+
     for(int i = m_y - 2; i >= 0; i--)
     {   
         for(int j = 0; j < m_x; j++)
         {
-            switch (m_canFall(j,i))
+            switch (m_canFall(j + _offset, i))
             {
             case 0:
-                std::cout << "case 0 called\n";
                 break;
             case 1:
-                std::cout << "case 1 called\n";
-                m_ppChar[i + 1][j - 1] = m_ppChar[i][j];
+                m_ppChar[i + 1][j - _offset] = m_ppChar[i][j];
                 m_ppChar[i][j] = " "[0];
+                changed = true;
                 break;
             case 2:
-                std::cout << "case 2 called\n";
                 m_ppChar[i + 1][j] = m_ppChar[i][j];
                 m_ppChar[i][j] = " "[0];
+                changed = true;
                 break;
             case 3:
-                std::cout << "case 3 called\n";
-                m_ppChar[i + 1][j + 1] = m_ppChar[i][j];
+                m_ppChar[i + 1][j + _offset] = m_ppChar[i][j];
                 m_ppChar[i][j] = " "[0];
+                changed = true;
                 break; 
             default:
                 break;
@@ -122,11 +107,10 @@ void table::m_fall()
         }
     }
 
-    std::cout << "before print\n";
-    m_printc();
+    return changed;
 }
 
-void table::m_printc()
+void table::printc()
 {
     std::cout << "\n";
 
@@ -136,7 +120,6 @@ void table::m_printc()
         {
             std::cout << "[" << m_ppChar[i][j] << "]";
         }
-
         std::cout << "\n";
     }
 
@@ -144,7 +127,20 @@ void table::m_printc()
     return;
 }
 
-void table::m_print()
+void table::print()
 {
+    return;
+}
+
+void table::trunOnGravity()
+{
+    for(int i = 0; i < m_x, i++)
+    {
+        while (m_fall(i))
+        {
+            printc();
+        }    
+    }
+
     return;
 }

@@ -5,37 +5,6 @@
 
 #include "table.h"
 
-int xMaxSize(std::vector<std::vector<char>> _vector)
-{
-    int out = 0;
-
-    for(int i = 0; i < _vector.size(); i++)
-    {
-        if(_vector[i].size() > out)
-        {
-            out = _vector[i].size();
-        }
-    }
-
-    return out;
-}
-
-std::vector<std::vector<char>> normalize(std::vector<std::vector<char>> _vector)
-{
-    int maxSize = xMaxSize(_vector);
-
-    for(size_t i = 0; i < _vector.size(); i++)
-    {
-        for (size_t j = _vector[i].size(); j < maxSize; j++)
-        {
-            char l = " "[0];
-            _vector[i].push_back(l);
-        }        
-    }
-
-    return _vector;
-}
-
 std::vector<std::vector<char>> read(const char* _path)
 {
     std::vector<std::vector<char>> out = {};
@@ -89,54 +58,6 @@ void printVector(std::vector<std::vector<char>> _vector)
     }
 }
 
-std::vector<std::vector<char>> drop(std::vector<std::vector<char>> _vector)
-{
-    std::cout << "\n\n";
-    printVector(_vector);
-    std::cout << "\n\n";
-    std::cout << "-1 :";
-    for (int i = _vector.size() - 2; i >= 0; i--)
-    {
-        std::cout << "0 ";
-        for (size_t j = 0; j < _vector[i].size(); j++)
-        {
-            if(j == 0 || j == _vector[i].size() - 1)
-            {
-                std::cout << "0.5 ";
-                if(j == 0)
-                {
-                    if(_vector[i + 1][j] == " "[0])
-                    {
-                        std::cout << "1 ";
-                        _vector[i + 1][j] = _vector[i][j];
-                        _vector[i][j] = " "[0];
-                    } else if(_vector[i + 1][j + 1] == " "[0]) {
-                        std::cout << "2 ";
-                        _vector[i + 1][j + 1] = _vector[i][j];
-                        _vector[i][j] = " "[0];
-                    }
-                } else {
-                    if(_vector[i + 1][_vector[i].size() - 1] == " "[0])
-                    {
-                        std::cout << "3 ";
-                        _vector[i + 1][_vector[i].size() - 1] = _vector[i][_vector[i].size() - 1];
-                        _vector[i][_vector[i].size() - 1] = " "[0];
-                    } else if(_vector[i + 1][_vector[i].size() - 2] == " "[0]) {
-                        std::cout << "4 ";
-                        _vector[i + 1][_vector[i].size() - 2] = _vector[i][_vector[i].size() - 1];
-                        _vector[i][_vector[i].size() - 1] = " "[0];
-                    }
-                }
-            } else {
-
-            }
-        }
-    }
-
-    std::cout << "\n\n";
-    return _vector;
-}
-
 int main()
 {
     const char* t_path = ".txt";
@@ -144,11 +65,8 @@ int main()
     std::vector<std::vector<char>> o = read(t_path);
     table a = table(o);
     
-    a.m_fall();
-    a.m_fall();
-    a.m_fall();
-    a.m_fall();
-    a.m_fall();
+    a.trunOnGravity();
+    
 
     std::cin.get();
     return 0;

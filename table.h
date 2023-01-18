@@ -6,14 +6,15 @@ private:
     
     char** m_ppChar = nullptr;
 
-    int m_size(std::vector<std::vector<char>> _vector);
+    bool m_fall(int _offset);
     int m_canFall(int _x, int _y);
-    void m_printc();
-    void m_print();
+    int m_size(std::vector<std::vector<char>> _vector);
 
 public:
     table(std::vector<std::vector<char>> _vector);
     ~table();
     
-    void m_fall();
+    void print();
+    void printc();
+    void trunOnGravity();
 };
