@@ -47,7 +47,7 @@ int table::m_size(std::vector<std::vector<char>> _vector)
     return out;
 }
 
-int table::m_canFall(int _x, int _y)
+int table::m_canFall(int _x, int _y, int _offset)
 {
     if(m_ppChar[_y][_x] == " "[0])
     {
@@ -59,14 +59,14 @@ int table::m_canFall(int _x, int _y)
     }
     else if(_x - 1 >= 0)
     {
-        if(m_ppChar[_y + 1][_x - 1] == " "[0])
+        if(m_ppChar[_y + 1][_x - _offset] == " "[0])
         {
             return 1;
         }
     }
     if(_x + 1 < m_x)
     {
-        if(m_ppChar[_y + 1][_x + 1] == " "[0])
+        if(m_ppChar[_y + 1][_x + _offset] == " "[0])
         {
             return 3;
         }
@@ -82,7 +82,7 @@ bool table::m_fall(int _offset)
     {   
         for(int j = 0; j < m_x; j++)
         {
-            switch (m_canFall(j + _offset, i))
+            switch (m_canFall(j, i, _offset))
             {
             case 0:
                 break;
