@@ -1,8 +1,0 @@
-{
-    "files.associations": {
-        "*.ejs": "html",
-        "*.js": "javascript",
-        "xstring": "cpp"
-    },
-    "cmake.configureOnOpen": false
-}
