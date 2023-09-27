@@ -9,9 +9,7 @@ int main() {
   Matrix matrix(loader.vStr);
 
   std::cout << "The end!" << std::endl;
-#if DEBUG
-//  std::cout << matrix << std::endl;
-#endif
+  std::cout << matrix << std::endl;
 
   return 0;
 }

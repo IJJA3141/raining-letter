@@ -16,9 +16,9 @@ Matrix::Matrix(std::vector<std::string> &_vStr) {
     for (int j = 0; j < this->width_; j++) {
       if (j < _vStr[i].size() && _vStr[i].compare(j, 1, " ") != 0) {
         this->vVPtrCell_[i][j] =
-            new Matrix::Cell_(_vStr[i].substr(1, j).c_str(), j, i, false);
+            new Matrix::Cell_(_vStr[i].substr(j, 1), j, i, false);
       } else {
-        this->vVPtrCell_[i][j] = new Matrix::Cell_(nullptr, j, i, false);
+        this->vVPtrCell_[i][j] = new Matrix::Cell_("", j, i, false);
       }
     }
   }
@@ -31,48 +31,48 @@ Matrix::Matrix(std::vector<std::string> &_vStr) {
       if (slash || pointSlash) {
         this->vVPtrCell_[i][j]->locked = true;
 
-        if (strcmp(this->vVPtrCell_[i][j]->character, "*") == 0 &&
-            j + 1 < this->width_) {
-          if (strcmp(this->vVPtrCell_[i][++j]->character, "/") == 0) {
+        if (this->vVPtrCell_[i][j]->character == "*" && j + 1 < this->width_) {
+          if (this->vVPtrCell_[i][++j]->character == "/") {
             this->vVPtrCell_[i][j]->locked = true;
             pointSlash = false;
           }
         }
-      } else if (j + 1 < this->width_ &&
-                 strcmp(this->vVPtrCell_[i][j]->character, "/") == 0) {
-        if (strcmp(this->vVPtrCell_[i][++j]->character, "/") == 0) {
+      } else if (this->vVPtrCell_[i][j]->character == "/" &&
+                 j + 1 < this->width_) {
+        if (this->vVPtrCell_[i][++j]->character == "/") {
           this->vVPtrCell_[i][j - 1]->locked = true;
+          this->vVPtrCell_[i][j]->locked = true;
           slash = true;
-        } else if (strcmp(this->vVPtrCell_[i][j]->character, "*") == 0) {
+        } else if (this->vVPtrCell_[i][j]->character == "*") {
           this->vVPtrCell_[i][j - 1]->locked = true;
+          this->vVPtrCell_[i][j]->locked = true;
           pointSlash = true;
         }
-      } else {
-        std::cout << "_______" << std::endl;
       }
     };
+
     slash = false;
   }
 
   return;
 };
-/*
+
 std::ostream &operator<<(std::ostream &_stream, Matrix &_matrix) {
   std::string str;
 
   for (int i = 0; i < _matrix.vVPtrCell_.size(); i++) {
-    str = "";
 
     for (int j = 0; j < _matrix.width_; j++) {
+    str = "";
       if (_matrix.vVPtrCell_[i][j]->locked) {
-        str += "\033[1;31m";
+        str += "[\033[1;31m";
         str += _matrix.vVPtrCell_[i][j]->character;
-        str += "\033[0m";
+        str += "\033[0m]";
         _stream << str;
       } else {
-        str += "\033[1;32m";
+        str += "[\033[1;32m";
         str += _matrix.vVPtrCell_[i][j]->character;
-        str += "\033[0m";
+        str += "\033[0m]";
         _stream << str;
       }
     }
@@ -81,4 +81,3 @@ std::ostream &operator<<(std::ostream &_stream, Matrix &_matrix) {
 
   return _stream;
 }
-*/
