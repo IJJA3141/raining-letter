@@ -13,10 +13,10 @@ public:
     std::string character;
     int x, y;
     bool locked;
+    bool empty;
 
-    Cell_(std::string _str, int _x, int _y, bool _locked)
-        : character(_str), x(_x), y(_y), locked(_locked){};
-    ~Cell_();
+    Cell_(std::string _str, int _x, int _y, bool _locked, bool _empty)
+        : character(_str), x(_x), y(_y), locked(_locked), empty(_empty){};
   };
 
   int width_;

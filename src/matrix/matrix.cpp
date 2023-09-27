@@ -16,9 +16,9 @@ Matrix::Matrix(std::vector<std::string> &_vStr) {
     for (int j = 0; j < this->width_; j++) {
       if (j < _vStr[i].size() && _vStr[i].compare(j, 1, " ") != 0) {
         this->vVPtrCell_[i][j] =
-            new Matrix::Cell_(_vStr[i].substr(j, 1), j, i, false);
+            new Matrix::Cell_(_vStr[i].substr(j, 1), j, i, false, false);
       } else {
-        this->vVPtrCell_[i][j] = new Matrix::Cell_("", j, i, false);
+        this->vVPtrCell_[i][j] = new Matrix::Cell_(" ", j, i, false, true);
       }
     }
   }
@@ -28,7 +28,7 @@ Matrix::Matrix(std::vector<std::string> &_vStr) {
 
   for (int i = 0; i < this->vVPtrCell_.size(); i++) {
     for (int j = 0; j < this->width_; j++) {
-      if (slash || pointSlash) {
+      if ((slash || pointSlash) && !this->vVPtrCell_[i][j]->empty) {
         this->vVPtrCell_[i][j]->locked = true;
 
         if (this->vVPtrCell_[i][j]->character == "*" && j + 1 < this->width_) {
@@ -63,7 +63,7 @@ std::ostream &operator<<(std::ostream &_stream, Matrix &_matrix) {
   for (int i = 0; i < _matrix.vVPtrCell_.size(); i++) {
 
     for (int j = 0; j < _matrix.width_; j++) {
-    str = "";
+      str = "";
       if (_matrix.vVPtrCell_[i][j]->locked) {
         str += "[\033[1;31m";
         str += _matrix.vVPtrCell_[i][j]->character;
