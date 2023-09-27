@@ -1,9 +1,7 @@
 #ifndef MATRIX
 #define MATRIX
 
-#if DEBUG
 #include <iostream>
-#endif
 #include <string>
 #include <vector>
 
@@ -31,5 +29,5 @@ public:
 
 #if DEBUG
 #endif
-std::ostream &operator<<(std::ostream &_stream, Matrix &_matrix);
+//std::ostream &operator<<(std::ostream &_stream, Matrix &_matrix);
 #endif // !MATRIX
