@@ -1,0 +1,6 @@
+#cell
+? Empty(x + 1, y):
+  no -> stop
+  yes -> ? Empty(x + 1, y + 1):
+    yes -> repeat
+    no -> x++ -> repeat
