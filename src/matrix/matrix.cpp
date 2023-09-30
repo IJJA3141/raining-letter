@@ -1,8 +1,12 @@
 #include "./matrix.hpp"
 
 Matrix::Matrix(std::vector<std::string> &_vStr) {
+  this->vVPtrCell_ = {};
+  this->vActivePtrCell_ = {};
   this->width_ = 0;
+
   Matrix::Cell_ *border = new Matrix::Cell_("", 0, 0, true, true);
+  Matrix::Cell_ *holder = nullptr;
 
   for (std::string _str : _vStr) {
     if (this->width_ < _str.size()) {
@@ -22,8 +26,9 @@ Matrix::Matrix(std::vector<std::string> &_vStr) {
 
     for (int j = 1; j <= this->width_; j++) {
       if (j < _vStr[i].size() && _vStr[i].compare(j, 1, " ") != 0) {
-        this->vVPtrCell_[i][j] =
-            new Matrix::Cell_(_vStr[i].substr(j, 1), j, i, false, false);
+        holder = new Matrix::Cell_(_vStr[i].substr(j, 1), j, i, false, false);
+        this->vVPtrCell_[i][j] = holder;
+        this->vActivePtrCell_.push_back(holder);
       } else {
         this->vVPtrCell_[i][j] = new Matrix::Cell_(" ", j, i, false, true);
       }

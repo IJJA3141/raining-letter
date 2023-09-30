@@ -30,6 +30,7 @@ public:
 
   int width_;
   std::vector<std::vector<Cell_ *>> vVPtrCell_;
+  std::vector<Matrix::Cell_*> vActivePtrCell_;
 };
 
 #if DEBUG
